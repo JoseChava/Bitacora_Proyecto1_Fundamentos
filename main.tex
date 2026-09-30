@@ -506,8 +506,7 @@
 	los optoacopladores y al final el motor.
 	
 	\subsection*{Identificaci\'on de pines}
-	El diagrama que se us\'o como referencia marcaba los cuatro transistores como PNP, y el orden de
-	sus patas no coincid\'ia con el de los BD140 reales. Para no depender de ese dibujo, cada
+	Al conectar los transistores, se hizo una mala identifiaci\`on de los pines. Para confirmar la posici\`on correcta de los pines, cada
 	transistor se prob\'o por aparte hasta confirmar cu\'al pata era la base, cu\'al el colector y
 	cu\'al el emisor. As\'i tambi\'en se verific\'o que los cuatro funcionaban.
 	
@@ -557,4 +556,28 @@
 	\end{table}
 	
 	\FloatBarrier
+	
+	\section{29 de septiembre --- integraci\'on y pruebas finales}
+	\textbf{Objetivo:} conectar las salidas del comparador al desacople y probar el sistema completo,
+	desde la entrada de la contrase\~na hasta el giro del motor.
+	
+	Las salidas del comparador ya estaban en one-hot (\texttt{100} cerrado, \texttt{010} error,
+	\texttt{001} abierto), as\'i que no hizo falta agregar compuertas: la salida \emph{abierto} se
+	conect\'o al optoacoplador que activa la direcci\'on de abrir, y la salida \emph{cerrado} al que
+	activa la de cerrar. La salida \emph{error} solo va al display. Como nunca hay dos salidas en 1 al
+	mismo tiempo, el motor nunca recibe las dos \'ordenes juntas. La l\'ogica y el motor siguieron
+	con fuentes separadas.
+	
+	Se realizaron m\'ultiples pruebas de funcionamiento utilizando un LED para revisar la salida del
+	165 en cada estado, y en todas el sistema respondi\'o correctamente: el display mostr\'o ``A'',
+	``C'' o ``E'' seg\'un el c\'odigo ingresado, y el motor gir\'o en la direcci\'on correcta al abrir
+	y al cerrar. En la Fig.~\ref{fig:circuito_completo} se muestra el circuito completo terminado, en
+	este caso en el estado ``E''.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\linewidth]{img/Circuito_completo.jpeg}
+		\caption{Circuito completo en protoboard, mostrando el estado ``E'' (c\'odigo inv\'alido).}
+		\label{fig:circuito_completo}
+	\end{figure}
 \end{document}
