@@ -454,4 +454,46 @@
 		dos diagonales a la vez, lo que evita un cortocircuito en el puente.
 	\end{itemize}
 	
+	\section{27 de septiembre --- simulaci\'on en LTspice}
+	\textbf{Objetivo:} simular el desacople y el puente H para confirmar que el motor gira en ambos
+	sentidos seg\'un la se\~nal que llegue del comparador.
+	
+	Se arm\'o el esquem\'atico en LTspice (Fig.~\ref{fig:puente_h_sim}) usando modelos de los
+	fabricantes para los transistores BD139/BD140, los diodos 1N4007 y los optoacopladores PC817. Como
+	LTspice no trae un motor DC, se represent\'o con una resistencia y una bobina en serie. Las
+	se\~nales de abrir y cerrar se simularon con dos fuentes de 5\,V que se encienden una a la vez, y
+	se dej\'o la tierra de la l\'ogica separada de la del motor, igual que en el circuito real.
+	
+	Mientras se armaba el esquem\'atico aparecieron algunos errores de conexi\'on: dos diodos
+	invertidos y los optoacopladores conectados a transistores equivocados. Una vez corregidos, la
+	simulaci\'on mostr\'o lo esperado (Tabla~\ref{tab:sim}): al activar la se\~nal de abrir el motor
+	recibe voltaje en un sentido, al activar la de cerrar lo recibe en el sentido contrario, y cuando
+	ninguna est\'a activa el motor queda apagado.
+	
+	\begin{table}[H]
+		\centering
+		\caption{Resultados de la simulaci\'on en LTspice}
+		\label{tab:sim}
+		\begin{tabular}{lcc}
+			\toprule
+			Estado & $V_{motor}$ (V) & $I_{motor}$ (mA)\\
+			\midrule
+			Abrir  & $+4{,}64$ & $+309$\\
+			Cerrar & $-4{,}64$ & $-309$\\
+			Reposo & $0$       & $0$\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	Con esto se confirm\'o que el puente invierte correctamente el giro del motor, que nunca se
+	activan las dos direcciones al mismo tiempo, y que la l\'ogica y el motor quedan aislados gracias
+	a los optoacopladores.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\linewidth]{img/Puente_H.png}
+		\caption{Esquem\'atico en LTspice del desacople con optoacopladores PC817 y del puente H.}
+		\label{fig:puente_h_sim}
+	\end{figure}
+	
 \end{document}
