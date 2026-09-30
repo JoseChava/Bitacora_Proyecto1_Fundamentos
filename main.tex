@@ -496,4 +496,65 @@
 		\label{fig:puente_h_sim}
 	\end{figure}
 	
+	\section{28 de septiembre --- armado y pruebas del puente H}
+	\textbf{Objetivo:} armar el desacople y el puente H y verificar que cada parte funcione por
+	separado antes de conectar el motor.
+	
+	Como no se ten\'ia mult\'imetro, todas las pruebas se hicieron con un LED con una resistencia de
+	1\,k$\Omega$ en serie, que enciende solo cuando pasa corriente. Se prob\'o de lo m\'as peque\~no a
+	lo m\'as grande: primero cada transistor por separado, luego cada diagonal del puente, despu\'es
+	los optoacopladores y al final el motor.
+	
+	\subsection*{Identificaci\'on de pines}
+	El diagrama que se us\'o como referencia marcaba los cuatro transistores como PNP, y el orden de
+	sus patas no coincid\'ia con el de los BD140 reales. Para no depender de ese dibujo, cada
+	transistor se prob\'o por aparte hasta confirmar cu\'al pata era la base, cu\'al el colector y
+	cu\'al el emisor. As\'i tambi\'en se verific\'o que los cuatro funcionaban.
+	
+	\subsection*{Error de dise\~no encontrado}
+	En el primer armado, las resistencias de base de dos transistores del mismo lado del puente
+	quedaron conectadas a uno de los bornes del motor. Sin ninguna se\~nal activa, el LED de prueba
+	encend\'ia d\'ebil: la corriente se colaba de un transistor al otro y los dos quedaban medio
+	encendidos, lo que es un cortocircuito parcial. Se corrigi\'o cambiando la forma de conectar el
+	puente: ahora cada optoacoplador une directamente la base de un transistor de arriba con la del
+	transistor de abajo del lado contrario, y ninguna resistencia va a los bornes del motor. As\'i,
+	si el optoacoplador est\'a apagado, ning\'un transistor enciende.
+	
+	\subsection*{Otros problemas}
+	\begin{itemize}
+		\item Uno de los transistores NPN se hab\'ia conectado como si fuera PNP.
+		\item Una resistencia de base hab\'ia quedado sin conectar.
+		\item Un optoacoplador parec\'ia da\~nado, pero el problema era que sus patas no hac\'ian buen
+		contacto con el protoboard. Se movi\'o a otra zona y funcion\'o.
+		\item Uno de los LED de prueba estaba quemado, lo que explicaba algunos resultados raros.
+	\end{itemize}
+	
+	En la Fig.~\ref{fig:puente_protoboard} se muestra el puente armado durante estas pruebas.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\linewidth]{img/Puente_protoboard.jpeg}
+		\caption{Puente H y optoacopladores armados en protoboard durante las pruebas.}
+		\label{fig:puente_protoboard}
+	\end{figure}
+	
+	\begin{table}[H]
+		\centering
+		\caption{Pruebas del desacople y del puente H}
+		\label{tab:pruebas_puente}
+		\begin{tabular}{l|c}
+			\toprule
+			Prueba & Resultado\\
+			\midrule
+			Cada transistor por separado & Funciona\\
+			Sin se\~nal activa & Todo apagado\\
+			Direcci\'on abrir & Funciona\\
+			Direcci\'on cerrar & Funciona\\
+			Optoacopladores en el puente & Funcionan\\
+			Motor con el puente & Gira en ambos sentidos\\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	\FloatBarrier
 \end{document}
